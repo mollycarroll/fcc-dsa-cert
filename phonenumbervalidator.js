@@ -1,34 +1,21 @@
 function telephoneCheck(str) {
-    let arr = str.split('');
-    let numbers = [];
-    let parens = [];
-  
-    arr.forEach(el => {
-      if (!isNaN(el) && el !== ' ') {
-        numbers.push(el);
-  
-      } else if (el === '(') {
-        parens.push(el);
-  
-      } else if (el === ')') {
-        parens.push(el);
-      } else {
-        return false
+  const regex = /^(\+?1\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+
+  let parens = [];
+
+  if (regex.test(str)) {
+
+    for (let i = 0; i < str.length; i++) {
+      if (str[i] === '(' || str[i] === ')') {
+        parens.push(str[i])
       }
-    });
-  
-    if (parens.length % 2 !== 0) {
-      return false
     }
-  
-    console.log(numbers)
-  
-    if (numbers.length === 10) {
+
+    if (parens.length === 0 || parens.length === 2) {
       return true
-    } else if (numbers.length === 11 && parseInt(numbers[0]) === 1) {
-      return true
-    } else {
-      return false
     }
-  
+
   }
+
+  return false
+}
